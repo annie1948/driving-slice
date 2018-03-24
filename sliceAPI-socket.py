@@ -61,7 +61,7 @@ def background_thread():
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(HOST_REMOTE, PORT_CORE, USER_CORE, PASSWORD_REMOTE)
-        stdin, stdout, stderr = ssh.exec_command("ping 127.0.0.1553 -c 1 | awk {'print $7'} | sed -e 1d -e 3,6d -e 's/time=//g'")
+        stdin, stdout, stderr = ssh.exec_command("ping 127.0.0.1 -c 1 | awk {'print $7'} | sed -e 1d -e 3,6d -e 's/time=//g'")
         delay2 = stdout.read()
         if delay2:
             delay2 = float(delay2.strip('\n'))
@@ -110,5 +110,5 @@ def socketio_connect():
             thread = socketio.start_background_task(target=background_thread)
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port= 5000)
+    socketio.run(app, debug=True, host='0.0.0.0', port= 5001)
 
